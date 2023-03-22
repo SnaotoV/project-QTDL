@@ -1,5 +1,5 @@
 <?php
-
+define('BASE_URL_PATH', '/');
 require_once __DIR__ . '/src/function.php';
 require_once __DIR__ . '/lib/Psr4AutoloaderClass.php';
 
@@ -9,7 +9,7 @@ $loader->addNamespace('QTDL\PROJECT',__DIR__.'/src');
 try {
     $PDO = (new QTDL\PROJECT\PDOFactory)->create([
     'dbhost' => 'localhost',
-    'dbname' => 'project_QTHT',
+    'dbname' => 'project_QTDL',
     'dbuser' => 'root',
     'dbpass' => ''
     ]);

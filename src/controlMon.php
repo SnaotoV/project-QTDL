@@ -14,6 +14,9 @@ class controlMon{
 	    {
     		$this->db = $pdo;
 	    }
+    public function getIdMon(){
+        return $this->mamon;
+    }
     public function getMon(){
         $allMon = [];
         $statement = $this->db->prepare('select * from mon');

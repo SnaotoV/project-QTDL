@@ -1,8 +1,7 @@
 <?php
     require_once '../connectData.php';
     use QTDL\PROJECT\controlMon;
-    $controlMon= new controlMon($PDO);
-    $allMon = $controlMon->getMonTheoKhoa($khoa);
+    use QTDL\PROJECT\controlKhoa;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đề Thi CTU</title>
+    <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
 		integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -21,28 +21,29 @@
 		</script>
 </head>
 <body>
-    <div class="header">
-        <div class="navbar-nav nav navbar-expand-md">
-			<a href="#" class="nav-link mr-3 ">Trang chủ</a>
-			<a href="#" class="nav-link mr-3 ">Đề Thi</a>
-			<a href="#" class="nav-link mr-3 ">Về chúng tôi</a>
-			<a href="#" class="nav-link mr-3 ">FAQ</a>
-			<a href="#" class="nav-link mr-3 ">Liên hệ</a>
-		</div>
-    </div>
+    
     <div class="main">
-        <?php?>
-        <table>
-            <?php foreach($allMon as $mon): ?>
-                <tr>
-                    <td><a href=""><?=htmlspecialchars($mon->mamon)?></a> - </td>
-                    <td><a href=""><?=htmlspecialchars($mon->tenmon)?></a></td>
-                </tr>
-                <?php endforeach?>
-        </table>
-    </div>
-    <div class="footer">
-
-    </div>
+            <?php require_once '../Compoinent/header.php' ?>
+            <?php 
+            $controlKhoa= new controlKhoa($PDO);
+            $allKhoa = $controlKhoa->getKhoa();
+            foreach($allKhoa as $khoa): ?>
+                    <div class='faculty-box' onclick="HandleClick(<?= $khoa->getIdKhoa() ?>)">
+                        <div class='faculty'><?= htmlspecialchars($khoa->makhoa)?> - <?=htmlspecialchars($khoa->tenkhoa)?></div>
+                        <div class='m-4 subject-box' id="<?= $khoa->getIdKhoa()?>">
+                            <?php
+                            $controlMon= new controlMon($PDO);
+                            $khoa = $khoa->makhoa;
+                            $allMon = $controlMon->getMonTheoKhoa($khoa);
+                            foreach($allMon as $mon): ?>
+                               <div><a href="<?=BASE_URL_PATH . 'allTest.php?id=' . $mon->getIdMon() ?>" class='subject'><?=htmlspecialchars($mon->mamon)?> - <?=htmlspecialchars($mon->tenmon)?></a></div> 
+                            <?php endforeach?>
+                        </div>
+                    </div>
+            <?php endforeach?> 
+        </div>
+            <div class="footer">
+            </div>
+            <script src="./js/main.js"></script>    
 </body>
 </html>
