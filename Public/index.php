@@ -35,9 +35,13 @@
                             $controlMon= new controlMon($PDO);
                             $khoa = $khoa->makhoa;
                             $allMon = $controlMon->getMonTheoKhoa($khoa);
-                            foreach($allMon as $mon): ?>
-                               <div><a href="<?=BASE_URL_PATH . 'allTest.php?id=' . $mon->getIdMon() ?>" class='subject'><?=htmlspecialchars($mon->mamon)?> - <?=htmlspecialchars($mon->tenmon)?></a></div> 
-                            <?php endforeach?>
+                            if(!empty($allMon)):?>
+                                <?php foreach($allMon as $mon): ?>
+                                    <div><a href="<?=BASE_URL_PATH . 'allTest.php?mamon=' . $mon->getIdMon() ?>" class='subject'><?=htmlspecialchars($mon->mamon)?> - <?=htmlspecialchars($mon->tenmon)?></a></div> 
+                                    <?php endforeach?>
+                                <?php else:?>
+                                    <div>Khoa này chưa có ngành</div>
+                                <?php endif?>
                         </div>
                     </div>
             <?php endforeach?> 

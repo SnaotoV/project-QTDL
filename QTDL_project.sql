@@ -22,6 +22,7 @@ maDT char(8) primary key NOT NULL,
 tenDT varchar(255) NOT NULL,
 ngaythi date NOT NULL,
 tgthi int,
+slCH int,
 makhoa char(8) NOT NULL,
 -- manganh char(8) NOT NULL,
 mamon char(8) NOT NULL,
@@ -94,29 +95,33 @@ insert into mon values('KT106','Nguyên lý kế toán','KT');
 insert into mon values('KT111','Tài chính - Tiền tệ','KT');
 insert into mon values('KT119','Phương pháp tư duy và kỹ năng giải quyết vấn đề','KT');
 
-insert into Dethi values('CT10101','Thi giữa kỳ lập trình căn bản','2020-12-02',45,'DI','CT101');
-insert into Dethi values('CT10102','Thi giữa kỳ lập trình căn bản','2020-3-22',45,'DI','CT101');
+insert into Dethi values('CT101D1','Thi giữa kỳ lập trình căn bản','2020-12-02',3,45,'DI','CT101');
+insert into Dethi values('CT101D2','Thi giữa kỳ lập trình căn bản','2020-3-22',5,45,'DI','CT101');
 
-insert into cauhoi values('CT1011','CT10101','lệnh scanf dùng để:');
-insert into cauhoi values('CT1012','CT10101','lệnh printf dùng để:');
-insert into cauhoi values('CT1013','CT10101','int là kiểu:');
+insert into cauhoi values('CT101C1','CT101D1','lệnh scanf dùng để');
+insert into cauhoi values('CT101C2','CT101D1','lệnh printf dùng để');
+insert into cauhoi values('CT101C3','CT101D1','int là kiểu');
 
-insert into traloi values('TL01','CT1011',1,'in ra màn hình');
-insert into traloi values('TL02','CT1011',0,'chỉnh sửa nội dung');
-insert into traloi values('TL03','CT1011',0,'nhập vào nội dung');
-insert into traloi values('TL04','CT1011',0,'xóa nội dung');
-insert into traloi values('TL01','CT1012',0,'in ra màn hình');
-insert into traloi values('TL02','CT1012',0,'chỉnh sửa nội dung');
-insert into traloi values('TL03','CT1012',1,'nhập vào nội dung');
-insert into traloi values('TL04','CT1012',0,'xóa nội dung');
-insert into traloi values('TL01','CT1013',0,'số thực');
-insert into traloi values('TL02','CT1013',0,'chuỗi');
-insert into traloi values('TL03','CT1013',1,'số nguyên');
-insert into traloi values('TL04','CT1013',0,'ký tự');
+insert into traloi values('TL01','CT101C1',1,'in ra màn hình');
+insert into traloi values('TL02','CT101C1',0,'chỉnh sửa nội dung');
+insert into traloi values('TL03','CT101C1',0,'nhập vào nội dung');
+insert into traloi values('TL04','CT101C1',0,'xóa nội dung');
+insert into traloi values('TL01','CT101C2',0,'in ra màn hình');
+insert into traloi values('TL02','CT101C2',0,'chỉnh sửa nội dung');
+insert into traloi values('TL03','CT101C2',1,'nhập vào nội dung');
+insert into traloi values('TL04','CT101C2',0,'xóa nội dung');
+insert into traloi values('TL01','CT101C3',0,'số thực');
+insert into traloi values('TL02','CT101C3',0,'chuỗi');
+insert into traloi values('TL03','CT101C3',1,'số nguyên');
+insert into traloi values('TL04','CT101C3',0,'ký tự');
 
 select * from traloi;
 select * from cauhoi;
 delete from cauhoi where maDT like 'CT101010';
 delete from dethi where maDT like 'CT10102';
 select * from mon where makhoa like "DI";
-select * from khoa
+select * from khoa;
+select * from dethi where maDT like 'CT10101';
+select * from cauhoi where maDT like 'CT10101';
+select * from traloi where maCH like'CT1011';
+select count(maDT) as slDe from dethi
