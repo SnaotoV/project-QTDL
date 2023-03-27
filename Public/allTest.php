@@ -23,13 +23,16 @@
     <?php require_once '../Compoinent/header.php'; 
     $mamon= isset($_REQUEST['mamon']) ?
     filter_var($_REQUEST['mamon']) : -1;
+    $makhoa= isset($_REQUEST['makhoa']) ?
+    filter_var($_REQUEST['makhoa']) : -1;
     ?>
+    <script>console.log('<?=$mamon?>')</script>
     <?php
     $controlDeThi = new controlDeThi($PDO);
     $allDethi = $controlDeThi->getDeThiTheoMon($mamon);
     foreach($allDethi as $Dethi):?>
                 <div><a href="<?=BASE_URL_PATH . 'Test.php?maDT='.$Dethi->maDT.'&tenDT='.$Dethi->tenDT ?>"><?=htmlspecialchars($Dethi->maDT)?> - <?=htmlspecialchars($Dethi->tenDT)?> </a></div> 
         <?php endforeach?>
-    <div><a href="<?=BASE_URL_PATH . 'addDeThi.php?mamon='.$mamon?>">Thêm Đề Thi</a></div>
+    <div><a href="<?=BASE_URL_PATH . 'addDeThi.php?makhoa='.$makhoa.'&mamon='.$mamon?>">Thêm Đề Thi</a></div>
 </body>
 </html>

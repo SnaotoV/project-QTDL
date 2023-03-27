@@ -2,6 +2,17 @@
     require_once '../connectData.php';
     use QTDL\PROJECT\controlDeThi;
 ?>
+<?php
+    $error = [];
+     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $Dethi = new controlDeThi($PDO);
+        $Dethi->fillDeThi($_POST);
+        if($Dethi->validate()){
+            $Dethi->saveDeThi()&&redirect(BASE_URL_PATH . 'allTest.php?makhoa='.$Dethi->makhoa.'&mamon=' . $Dethi->mamon );
+        }
+        $errors = $Dethi->getValidationErrors();
+     } 
+?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,13 +32,66 @@
 <body>
     <?php require_once '../Compoinent/header.php' ?>
     <?php
-    $controlDeThi = new controlDeThi($PDO);
-    $DeThi = $controlDeThi->auToIdDeThi('CT101');
+   
     ?>
-    <script>console.log('<?= $DeThi ?>')</script>
-    <form action="">
-        <label for="">Nhap số câu hỏi</label>
+    <form action="" method="post">
+    <?php require_once '../Compoinent/header.php'; 
+    $mamon= isset($_REQUEST['mamon']) ?
+    filter_var($_REQUEST['mamon']) : -1;
+    $makhoa= isset($_REQUEST['makhoa']) ?
+    filter_var($_REQUEST['makhoa']) : -1;
+    ?>
+        <table>
+            <tr>
+                <td>
+                    <label for="">Mã Khoa</label>
+                </td>
+                <td>
+                    <input type="text" name='makhoa' value='<?=$makhoa?>'>    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="">Mã Môn Thi</label>
+                </td>
+                <td>
+                    <input type="text" name='mamon' value='<?=$mamon?>'>    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="">Kỳ thi</label>
+                </td>
+                <td>
+                    <input type="text" name='tenDT'>
+                </td>
+                <td>
+                    <?php if (isset($errors['tenDT'])) : ?>
+                        <span class="help-block">
+                            <strong><?= htmlspecialchars($errors['tenDT']) ?></strong>
+                        </span>
+                        <?php endif ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="">Ngày thi</label>
+                </td>
+                <td>
+                    <input type="date" name='ngaythi'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="">Thời gian làm bài</label>
+                </td>
+                <td>
+                    <input type="text" name='tgthi'>
+                </td>
+            </tr>
+            
+        </table>
+        <button type="submit" name="submit" id="submit" >Post</button>
     </form>
-
 </body>
 </html>

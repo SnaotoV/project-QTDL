@@ -5,13 +5,54 @@ private $db;
 public $maDT;
 public $tenDT;
 public $ngaythi;
-public $slCH;
 public $tgthi;
 public $mamon;
+public $makhoa;
+public $errors = [];
 
 public function __construct($pdo)
 {
     $this->db = $pdo;
+}
+public function getValidationErrors()
+	{
+		return $this->errors;
+	}
+public function validate(){
+		if (!$this->maDT) {
+			$this->errors['maDT'] = 'Mã đề thi không được trống.';
+		}
+
+		if (!$this->tenDT) {
+			$this->errors['tenDT'] = 'Tên đề thi không được trống.';
+		}
+
+		if (!$this->ngaythi) {
+			$this->errors['ngaythi'] = 'Ngày thi không sssđược trống';
+		}
+        if (!$this->tgthi) {
+			$this->errors['tgthi'] = 'Thời gian thi không được trống';
+		}
+
+		return empty($this->errors);
+	}
+public function fillDeThi(array $Dethi){
+    if(isset($Dethi['makhoa'])){
+        $this->makhoa = trim($Dethi['makhoa']);
+    }
+    if(isset($Dethi['mamon'])){
+        $this->mamon = trim($Dethi['mamon']);
+    }
+    if(isset($Dethi['tenDT'])){
+        $this->tenDT = trim($Dethi['tenDT']);
+    }
+    if(isset($Dethi['ngaythi'])){
+        $this->ngaythi = trim($Dethi['ngaythi']);
+    }
+    if(filter_var($Dethi['tgthi'], FILTER_SANITIZE_NUMBER_INT)>0){
+        $this->tgthi = $Dethi['tgthi'];
+    }
+    return $this;
 }
 public function getDeThi(){
     $allDeThi = [];
@@ -51,15 +92,35 @@ protected function fillFromDT(array $row)
         'tenDT' => $this->tenDT,
         'ngaythi'=>$this->ngaythi,
         'tgthi'=>$this->tgthi,
-        'slCH'=>$this->slCH,
         'mamon'=>$this->mamon
     ] = $row;
     return $this;
 }
-public function auToIdDeThi($mamon){
-    $statement = $this->db->prepare('select count(maDT) as slDe from dethi');
-    $statement->execute();
+public function autoIdDeThi($mamon){
+    $statement = $this->db->prepare('select count(maDT) as slDe from dethi where mamon like :mamon');
+    $statement->execute(array('mamon'=>$mamon));
     $countDeThi = $statement->fetch();
     return $mamon.'D'.$countDeThi['slDe']+1;
+}
+public function saveDeThi(){
+    $result = false;
+    if(!$this->maDT){
+        $statement = $this->db->prepare(
+            'insert into Dethi values(:maDT,:tenDT,:ngaythi,:tgthi,:makhoa,:mamon);'
+        );
+        $mauDT = new controlDeThi($this->db);
+        $result = $statement->execute([
+            'maDT'=> $mauDT->autoIdDeThi($this->mamon),
+            'tenDT'=> $this->tenDT,
+            'ngaythi'=> $this->ngaythi,
+            'tgthi'=> $this->tgthi,
+            'makhoa'=> $this->makhoa,
+            'mamon'=> $this->mamon
+        ]);
+        if ($result) {
+            $this->maDT = $this->db->lastInsertId();
+        }
+    }
+    return $result;
 }
 }
