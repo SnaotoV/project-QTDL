@@ -19,22 +19,16 @@ public function getValidationErrors()
 		return $this->errors;
 	}
 public function validate(){
-		if (!$this->maDT) {
-			$this->errors['maDT'] = 'Mã đề thi không được trống.';
-		}
-
-		if (!$this->tenDT) {
-			$this->errors['tenDT'] = 'Tên đề thi không được trống.';
-		}
-
-		if (!$this->ngaythi) {
-			$this->errors['ngaythi'] = 'Ngày thi không sssđược trống';
-		}
-        if (!$this->tgthi) {
-			$this->errors['tgthi'] = 'Thời gian thi không được trống';
-		}
-
-		return empty($this->errors);
+    if(!$this->tenDT){
+        $this->errors['tenDT']='Tên đề thi không được trống.';
+    }
+    if(!$this->ngaythi){
+        $this->errors['ngaythi']='Ngày thi không được trống.';
+    }
+    if(!$this->tgthi){
+        $this->errors['tgthi']='Thời gian thi không được trống.';
+    }
+    return empty($this->errors);
 	}
 public function fillDeThi(array $Dethi){
     if(isset($Dethi['makhoa'])){

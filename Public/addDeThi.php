@@ -3,10 +3,11 @@
     use QTDL\PROJECT\controlDeThi;
 ?>
 <?php
-    $error = [];
+    $errors = [];
      if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $Dethi = new controlDeThi($PDO);
         $Dethi->fillDeThi($_POST);
+        $check = $Dethi->validate();
         if($Dethi->validate()){
             $Dethi->saveDeThi()&&redirect(BASE_URL_PATH . 'allTest.php?makhoa='.$Dethi->makhoa.'&mamon=' . $Dethi->mamon );
         }
@@ -80,6 +81,13 @@
                 <td>
                     <input type="date" name='ngaythi'>
                 </td>
+                <td>
+                    <?php if (isset($errors['ngaythi'])) : ?>
+                        <span class="help-block">
+                            <strong><?= htmlspecialchars($errors['ngaythi']) ?></strong>
+                        </span>
+                        <?php endif ?>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -88,10 +96,25 @@
                 <td>
                     <input type="text" name='tgthi'>
                 </td>
+                <td>
+                    <?php if (isset($errors['tgthi'])) : ?>
+                        <span class="help-block">
+                            <strong><?= htmlspecialchars($errors['tgthi']) ?></strong>
+                        </span>
+                        <?php endif ?>
+                </td>
             </tr>
             
         </table>
         <button type="submit" name="submit" id="submit" >Post</button>
     </form>
+    <?php
+    $error = [];
+    ?>
+    <script>console.log('<?=$Dethi->tenDT?>')</script>
+    <script>console.log('<?=$Dethi->ngaythi?>')</script>
+    <script>console.log('<?=$Dethi->tgthi?>')</script>
+    <script>console.log('<?=empty($error)?>')</script>
+    <script>console.log('<?=$check?>')</script>
 </body>
 </html>
