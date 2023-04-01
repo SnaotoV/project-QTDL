@@ -33,30 +33,32 @@ use QTDL\PROJECT\controlTraLoi;
 ?>
 <div></div>
 
-    <?php foreach ($allCauHoi as $cauhoi):?>
-        <div><?=substr(htmlspecialchars($cauhoi->maCH),6)?>/: <?=htmlspecialchars($cauhoi->ndCauHoi)?>:</div>
+    <?php
+    $demCauHoi = 1;
+    foreach ($allCauHoi as $cauhoi):?>
+        <div><?=htmlspecialchars($demCauHoi)?>/: <?=htmlspecialchars($cauhoi->ndCauHoi)?>:</div>
         <?php 
             $controlTraLoi = new controlTraLoi($PDO);
             $allTraLoi = $controlTraLoi->getTraLoiTheoCauHoi($cauhoi->maCH);
             foreach ($allTraLoi as $TraLoi):?>
-            <?php
-            if ($TraLoi->maTL == 'TL01'){
-                $charTraLoi='A';
-            }
-            else if ($TraLoi->maTL == 'TL02'){
-                $charTraLoi='B';
-            }
-            else if ($TraLoi->maTL == 'TL03'){
-                $charTraLoi='C';
-            }
-            else if ($TraLoi->maTL == 'TL04'){
-                $charTraLoi='D';
-            }?>
-            <div><?=htmlspecialchars($charTraLoi)?>-<?=htmlspecialchars($TraLoi->ndTraLoi)?></div>
+            <?php $TraLoi->dapan==1 ? $colorDapAn = 'red' : $colorDapAn = '' ?>
+            <div class="ml-4 m-1" style='color:  <?=$colorDapAn?>;'><?=htmlspecialchars($TraLoi->vitri)?>) <?=htmlspecialchars($TraLoi->ndTraLoi)?></div>
             <?php endforeach?>
+            <?php $demCauHoi++?>
+            <form class="delete" action="<?=BASE_URL_PATH.'deleteCauHoi.php'?>"					
+		method="post" style="display: inline;">
+        <input type="hidden" name="maDT"
+		value="<?=$maDT?>">
+        <input type="hidden" name="maCH"
+		value="<?=$cauhoi->maCH?>">
+            <button type='submit'>delete</button>
+        </form>
         <?php endforeach?>
+        <script>console.log('<?=$_POST['maCH']?>')</script>
+        <script>console.log('<?=$_POST['maDT']?>')</script>
     <?php else:?>
         <div>Đề Thi chưa có câu hỏi <a href="<?=BASE_URL_PATH . 'addCauHoi.php?maDT=' . $DeThi->maDT ?>">thêm câu hỏi</a></div>
     <?php endif?>    
+        <a href="<?=BASE_URL_PATH . 'addCauHoi.php?maDT=' . $DeThi->maDT ?>">thêm câu hỏi</a>
 </body>
 </html>

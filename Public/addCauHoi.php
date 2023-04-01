@@ -1,6 +1,8 @@
 <?php
     require_once '../connectData.php';
-
+    require_once '../src/checkErrors.php';
+    require_once '../src/functionAddQuest.php';
+    use QTDL\PROJECT\controlDeThi;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,8 +22,54 @@
 </head>
 <body>
     <?php require_once '../Compoinent/header.php' ?>
-    <form action="">
-        <label for=""></label>
+    <?php
+    $controlDeThi = new controlDeThi($PDO);
+    $maDT= isset($_REQUEST['maDT']) ?
+    filter_var($_REQUEST['maDT']) : -1;
+    $Dethi=$controlDeThi->getDeThiMaDeThi($maDT);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $errors=checkErrors($_POST);
+        if(empty($errors)){
+           functionAddQuest($PDO,$_POST,$maDT)&&redirect(BASE_URL_PATH . 'Test.php?maDT='.$Dethi->maDT.'&tenDT='.$Dethi->tenDT );
+       }
+    } 
+    ?>
+    <form action="" method='post'>
+        <label for="ndCauHoi">nhập nội dung câu hỏi:</label>
+        <textarea name="ndCauHoi" id="ndCauHoi" cols="180" rows="10"></textarea>
+        <?php if(isset($errors['ndCauHoi'])):?>
+            <span><strong><?=htmlspecialchars($errors['ndCauHoi'])?></strong></span><br>
+        <?php endif?>
+        <label for="ndTraLoi1">nhập câu trả lời</label>
+        <input type="text" name='ndTraLoi1' id='ndTraLoi1'>
+        <label for="TL1">check nếu câu trả lời là đúng</label>
+        <input type="radio" name='dapan' id='TL1' value="1"><br>
+        <?php if(isset($errors['ndTraLoi1'])):?>
+            <span><strong><?=htmlspecialchars($errors['ndTraLoi1'])?></strong></span><br>
+        <?php endif?>
+        <label for="ndTraLoi2">nhập câu trả lời</label>
+        <input type="text" name='ndTraLoi2' id='ndTraLoi2'>
+        <label for="TL2">check nếu câu trả lời là đúng</label>
+        <input type="radio" name='dapan' id='TL2' value="2"><br>
+        <?php if(isset($errors['ndTraLoi2'])):?>
+            <span><strong><?=htmlspecialchars($errors['ndTraLoi2'])?></strong></span><br>
+        <?php endif?>
+        <label for="ndTraLoi3">nhập câu trả lời</label>
+        <input type="text" name='ndTraLoi3' id='ndTraLoi3'>
+        <label for="TL3">check nếu câu trả lời là đúng</label>
+        <input type="radio" name='dapan' id='TL3' value="3"><br>
+        <?php if(isset($errors['ndTraLoi3'])):?>
+            <span><strong><?=htmlspecialchars($errors['ndTraLoi3'])?></strong></span><br>
+        <?php endif?>
+        <label for="ndTraLoi4">nhập câu trả lời</label>
+        <input type="text" name='ndTraLoi4' id='ndTraLoi4'>
+        <label for="TL4">check nếu câu trả lời là đúng</label>
+        <input type="radio" name='dapan' id='TL4' value="4"><br>
+        <?php if(isset($errors['ndTraLoi4'])):?>
+            <span><strong><?=htmlspecialchars($errors['ndTraLoi4'])?></strong></span><br>
+        <?php endif?>
+        <button type='submit'>thêm</button>
     </form>
+    <script>console.log('<?=$_POST['dapan']?>')</script>
 </body>
 </html>

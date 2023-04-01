@@ -40,7 +40,7 @@
                                     <div><a href="<?=BASE_URL_PATH . 'allTest.php?makhoa='.$makhoa.'&mamon=' . $mon->getIdMon() ?>" class='subject'><?=htmlspecialchars($mon->mamon)?> - <?=htmlspecialchars($mon->tenmon)?></a></div> 
                                     <?php endforeach?>
                                 <?php else:?>
-                                    <div>Khoa này chưa có ngành</div>
+                                    <div>Khoa này chưa có môn học</div>
                                 <?php endif?>
                         </div>
                     </div>

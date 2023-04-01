@@ -7,7 +7,6 @@
      if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $Dethi = new controlDeThi($PDO);
         $Dethi->fillDeThi($_POST);
-        $check = $Dethi->validate();
         if($Dethi->validate()){
             $Dethi->saveDeThi()&&redirect(BASE_URL_PATH . 'allTest.php?makhoa='.$Dethi->makhoa.'&mamon=' . $Dethi->mamon );
         }

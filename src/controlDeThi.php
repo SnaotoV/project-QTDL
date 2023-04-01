@@ -90,21 +90,14 @@ protected function fillFromDT(array $row)
     ] = $row;
     return $this;
 }
-public function autoIdDeThi($mamon){
-    $statement = $this->db->prepare('select count(maDT) as slDe from dethi where mamon like :mamon');
-    $statement->execute(array('mamon'=>$mamon));
-    $countDeThi = $statement->fetch();
-    return $mamon.'D'.$countDeThi['slDe']+1;
-}
 public function saveDeThi(){
     $result = false;
     if(!$this->maDT){
         $statement = $this->db->prepare(
-            'insert into Dethi values(:maDT,:tenDT,:ngaythi,:tgthi,:makhoa,:mamon);'
+            'insert into Dethi (tenDT,ngaythi,tgthi,makhoa,mamon) 
+            values(:tenDT,:ngaythi,:tgthi,:makhoa,:mamon);'
         );
-        $mauDT = new controlDeThi($this->db);
         $result = $statement->execute([
-            'maDT'=> $mauDT->autoIdDeThi($this->mamon),
             'tenDT'=> $this->tenDT,
             'ngaythi'=> $this->ngaythi,
             'tgthi'=> $this->tgthi,

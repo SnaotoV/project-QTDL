@@ -7,6 +7,7 @@ public $maTL;
 public $maCH;
 public $dapan;
 public $ndTraLoi;
+public $vitri;
 
 public function __construct($pdo)
 {
@@ -30,7 +31,8 @@ protected function fillFromDT(array $row)
         'maTL' => $this->maTL,
         'maCH' => $this->maCH,
         'dapan'=>$this->dapan,
-        'ndTraLoi'=>$this->ndTraLoi
+        'ndTraLoi'=>$this->ndTraLoi,
+        'vitri'=>$this->vitri
     ] = $row;
     return $this;
 }

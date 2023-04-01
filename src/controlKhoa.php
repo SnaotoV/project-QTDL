@@ -24,7 +24,7 @@ class controlKhoa{
     }
     protected function fillFromKhoa(array $row)
 	{
-		[
+		[   
 			'makhoa' => $this->makhoa,
 			'tenKhoa' => $this->tenkhoa,
 		] = $row;

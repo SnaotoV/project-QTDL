@@ -10,7 +10,6 @@ class controlCauHoi{
     {
         $this->db = $pdo;
     }
-
 public function getCauHoiTheoDeThi($maDT){
     $allCauHoi = [];
     $statement = $this->db->prepare('select * from cauhoi where maDT like :maDT');
@@ -30,5 +29,14 @@ protected function fillFromDT(array $row)
         'ndCauHoi'=>$this->ndCauHoi
     ] = $row;
     return $this;
+}
+public function  findCauHoi($maCH){
+    $statement = $this->db->prepare('select * from cauhoi where maCH like :maCH');
+    $statement->execute(array('maCH'=>$maCH));
+    if($row = $statement->fetch()){
+        $this->fillFromDT($row);
+			return $this;
+    }
+    return null;
 }
 }
