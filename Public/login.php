@@ -26,8 +26,12 @@
             $_SESSION['id']=$User->id;
             $_SESSION['user_type']=$User->getUserType();
             $_SESSION['hoten']=$User->hoten;
+            redirect(BASE_URL_PATH.'index.php');
         }
-    redirect(BASE_URL_PATH.'index.php');
+        else{
+            $error='Sai tài khoản hoặc mật khẩu';
+        }
+       
     }
     ?>
     <div>Đăng nhập</div>
@@ -53,6 +57,13 @@
     </table>
     <button type='submit'>Đăng nhập</button>
     </form>
+    <td>
+                <?php if (isset($error)) : ?>
+                    <span class="help-block">
+                        <strong><?= htmlspecialchars($error) ?></strong>
+                    </span>
+                    <?php endif ?>
+                </td>
     <script>console.log('<?=empty($_SESSION['id'])?>')</script>
 </body>
 </html>

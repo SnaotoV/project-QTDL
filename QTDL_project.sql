@@ -123,3 +123,5 @@ select * from dethi where maDT like 'CT10101';
 select * from cauhoi where maDT like 'CT10101';
 select * from traloi;
 select * from nguoidung where taikhoan like 'AD123456' and matkhau like 'AD123456';
+select * from nguoidung;
+delete from nguoidung where id=3;

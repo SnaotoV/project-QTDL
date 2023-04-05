@@ -29,7 +29,12 @@
     <script>console.log('<?=$_SESSION['id']?>')</script>
     <?php
     $controlDeThi = new controlDeThi($PDO);
-    $allDethi = $controlDeThi->getDeThiTheoMon($mamon);
+    if($mamon<0){
+        $allDethi = $controlDeThi->getDeThi();
+    }
+    else{
+        $allDethi = $controlDeThi->getDeThiTheoMon($mamon);
+    }
     foreach($allDethi as $Dethi):?>
                 <div><a href="<?=BASE_URL_PATH . 'Test.php?maDT='.$Dethi->maDT.'&tenDT='.$Dethi->tenDT ?>"><?=htmlspecialchars($Dethi->maDT)?> - <?=htmlspecialchars($Dethi->tenDT)?> </a></div> 
         <?php endforeach?>
