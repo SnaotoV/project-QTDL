@@ -51,7 +51,9 @@ use QTDL\PROJECT\controlTraLoi;
 		value="<?=$maDT?>">
         <input type="hidden" name="maCH"
 		value="<?=$cauhoi->maCH?>">
+            <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
             <button type='submit'>delete</button>
+            <?php endif?>
         </form>
         <?php endforeach?>
         <script>console.log('<?=$_POST['maCH']?>')</script>
@@ -59,6 +61,8 @@ use QTDL\PROJECT\controlTraLoi;
     <?php else:?>
         <div>Đề Thi chưa có câu hỏi <a href="<?=BASE_URL_PATH . 'addCauHoi.php?maDT=' . $DeThi->maDT ?>">thêm câu hỏi</a></div>
     <?php endif?>    
+    <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
         <a href="<?=BASE_URL_PATH . 'addCauHoi.php?maDT=' . $DeThi->maDT ?>">thêm câu hỏi</a>
+        <?php endif?>    
 </body>
 </html>

@@ -26,13 +26,15 @@
     $makhoa= isset($_REQUEST['makhoa']) ?
     filter_var($_REQUEST['makhoa']) : -1;
     ?>
-    <script>console.log('<?=$mamon?>')</script>
+    <script>console.log('<?=$_SESSION['id']?>')</script>
     <?php
     $controlDeThi = new controlDeThi($PDO);
     $allDethi = $controlDeThi->getDeThiTheoMon($mamon);
     foreach($allDethi as $Dethi):?>
                 <div><a href="<?=BASE_URL_PATH . 'Test.php?maDT='.$Dethi->maDT.'&tenDT='.$Dethi->tenDT ?>"><?=htmlspecialchars($Dethi->maDT)?> - <?=htmlspecialchars($Dethi->tenDT)?> </a></div> 
         <?php endforeach?>
+    <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
     <div><a href="<?=BASE_URL_PATH . 'addDeThi.php?makhoa='.$makhoa.'&mamon='.$mamon?>">Thêm Đề Thi</a></div>
+    <?php endif?>
 </body>
 </html>

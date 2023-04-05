@@ -75,10 +75,10 @@
             </tr>
             <tr>
                 <td>
-                    <label for="">Ngày thi</label>
+                    <label for="ngaythi">Ngày thi</label>
                 </td>
                 <td>
-                    <input type="date" name='ngaythi'>
+                    <input type="date" name='ngaythi' id='ngaythi'>
                 </td>
                 <td>
                     <?php if (isset($errors['ngaythi'])) : ?>
@@ -105,7 +105,7 @@
             </tr>
             
         </table>
-        <button type="submit" name="submit" id="submit" >Post</button>
+        <button type="submit" name="submit" id="submit" >Thêm</button>
     </form>
     <?php
     $error = [];

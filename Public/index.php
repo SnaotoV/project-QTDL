@@ -45,6 +45,7 @@
                         </div>
                     </div>
             <?php endforeach?> 
+            <script>console.log('<?=$_SESSION['id']?>')</script>
         </div>
             <div class="footer">
             </div>

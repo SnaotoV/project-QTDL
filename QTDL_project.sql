@@ -43,17 +43,14 @@ vitri char(1) Not null,
 foreign key (maCH) references CAUHOI(maCH)
 );
  create table NGUOIDUNG(
- maND char(8)primary key NOT NULL,
+ id int(8)  primary key NOT NULL auto_increment,
  taikhoan varchar(16),
- matkhau varchar(16)
+ matkhau varchar(16),
+ hoten varchar(255),
+ user_type varchar(50)
  );
- create table AD(
- maAD char(8)primary key NOT NULL,
- taikhoan varchar(16),
- matkhau varchar(16)
- );
- 
- insert into ad values('AD123456','AD123456','AD123456');
+ insert into nguoidung values(1,'AD123456','AD123456','Admin','admin');
+ insert into nguoidung values(2,'Toan','Toan','Võ Phúc Toàn','user');
 
 insert into Khoa values('DI','Công nghệ thông tin và truyền thông');
 insert into Khoa values('KT','Kinh tế');
@@ -117,10 +114,12 @@ insert into traloi values('12','3',0,'ký tự','D');
 
 select * from traloi;
 select * from cauhoi;
-delete from cauhoi where maDT like 'CT101010';
+delete from cauhoi where maCH=4;
+delete from traloi where maCH=4;
 delete from dethi where maDT like 'CT101D6';
 select * from mon where makhoa like "DI";
 select * from khoa;
 select * from dethi where maDT like 'CT10101';
 select * from cauhoi where maDT like 'CT10101';
-select * from traloi where maCH like'CT1011';
+select * from traloi;
+select * from nguoidung where taikhoan like 'AD123456' and matkhau like 'AD123456';
