@@ -36,8 +36,23 @@
         $allDethi = $controlDeThi->getDeThiTheoMon($mamon);
     }
     foreach($allDethi as $Dethi):?>
-                <div><a href="<?=BASE_URL_PATH . 'Test.php?maDT='.$Dethi->maDT.'&tenDT='.$Dethi->tenDT ?>"><?=htmlspecialchars($Dethi->maDT)?> - <?=htmlspecialchars($Dethi->tenDT)?> </a></div> 
+               <form class="delete" action="<?=BASE_URL_PATH.'deleteDethi.php'?>"					
+		        method="post" style="display: inline;">
+                    <a href="<?=BASE_URL_PATH . 'Test.php?maDT='.$Dethi->maDT.'&tenDT='.$Dethi->tenDT ?>"><?=htmlspecialchars($Dethi->maDT)?> - <?=htmlspecialchars($Dethi->tenDT)?> </a>
+                    <input type="hidden" name="maDT"
+		            value="<?=$Dethi->maDT?>">
+                    <input type="hidden" name="mamon"
+		            value="<?=$mamon?>">
+                    <input type="hidden" name="makhoa"
+		            value="<?=$makhoa?>">
+                    <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
+                        <a href="<?=BASE_URL_PATH . 'edit.php?makhoa='.$makhoa.'&mamon='.$mamon.'&maDT='.$Dethi->maDT?>">Sửa</a>
+                        <button type="submit">Xóa</button>
+                    <?php endif?> 
+                    </form>
+                <br>
         <?php endforeach?>
+        <script>console.log("<?=$_POST['mamon']?>")</script>
     <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
     <div><a href="<?=BASE_URL_PATH . 'addDeThi.php?makhoa='.$makhoa.'&mamon='.$mamon?>">Thêm Đề Thi</a></div>
     <?php endif?>

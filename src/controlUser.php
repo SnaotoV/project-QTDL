@@ -51,12 +51,12 @@ public function fillUser(array $User){
         return $this->user_type;
     }
     public function findUsertheoTaiKhoan($taikhoan){
-        $statement = $this->db->prepare('select * from nguoidung where taikhoan = :taikhoan');
+        $statement = $this->db->prepare('select * from nguoidung where taikhoan like :taikhoan');
         $statement->execute(array('taikhoan'=>$taikhoan));
         if($row = $statement->fetch()){
             $this->fillFromUser($row);
         }
-        return $this;
+        return isset($this->id);
     }
     public function getUsertheoTaiKhoan($User){
         $statement = $this->db->prepare('select * from nguoidung where taikhoan like :taikhoan and matkhau like :matkhau');
@@ -88,7 +88,7 @@ public function fillUser(array $User){
     }
     public function saveUser(){
         $result = false;
-        if(!$this->maDT){
+        if(!$this->id){
             $statement = $this->db->prepare(
                 'insert into nguoidung (taikhoan,matkhau,hoten,user_type) 
                 values(:taikhoan,:matkhau,:hoten,:user_type);'

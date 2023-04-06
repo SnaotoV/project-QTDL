@@ -31,6 +31,9 @@ public function validate(){
     return empty($this->errors);
 	}
 public function fillDeThi(array $Dethi){
+    if(isset($Dethi['maDT'])){
+        $this->maDT = trim($Dethi['maDT']);
+    }
     if(isset($Dethi['makhoa'])){
         $this->makhoa = trim($Dethi['makhoa']);
     }
@@ -86,13 +89,29 @@ protected function fillFromDT(array $row)
         'tenDT' => $this->tenDT,
         'ngaythi'=>$this->ngaythi,
         'tgthi'=>$this->tgthi,
+        'makhoa'=> $this->makhoa,
         'mamon'=>$this->mamon
     ] = $row;
     return $this;
 }
 public function saveDeThi(){
     $result = false;
-    if(!$this->maDT){
+    if($this->maDT>0){
+        $statement = $this->db->prepare(
+            'update dethi set tenDT = :tenDT,
+            ngaythi = :ngaythi, tgthi = :tgthi, makhoa = :makhoa, mamon = :mamon
+            where maDT = :maDT'
+        );
+        $result = $statement->execute([
+            'tenDT'=> $this->tenDT,
+            'ngaythi'=> $this->ngaythi,
+            'tgthi'=> $this->tgthi,
+            'makhoa'=> $this->makhoa,
+            'mamon'=> $this->mamon,
+            'maDT'=>$this->maDT
+        ]);
+    }
+    else{
         $statement = $this->db->prepare(
             'insert into Dethi (tenDT,ngaythi,tgthi,makhoa,mamon) 
             values(:tenDT,:ngaythi,:tgthi,:makhoa,:mamon);'

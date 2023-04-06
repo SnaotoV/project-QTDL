@@ -59,7 +59,13 @@ use QTDL\PROJECT\controlTraLoi;
         <script>console.log('<?=$_POST['maCH']?>')</script>
         <script>console.log('<?=$_POST['maDT']?>')</script>
     <?php else:?>
-        <div>Đề Thi chưa có câu hỏi <a href="<?=BASE_URL_PATH . 'addCauHoi.php?maDT=' . $DeThi->maDT ?>">thêm câu hỏi</a></div>
+        <div>Đề Thi chưa có câu hỏi 
+        <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
+            <a href="<?=BASE_URL_PATH . 'addCauHoi.php?maDT=' . $DeThi->maDT ?>">thêm câu hỏi</a>
+        <?php else:?>
+            đợi admin thêm câu hỏi
+            <?php endif?>    
+        </div>
     <?php endif?>    
     <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
         <a href="<?=BASE_URL_PATH . 'addCauHoi.php?maDT=' . $DeThi->maDT ?>">thêm câu hỏi</a>
