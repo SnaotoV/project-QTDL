@@ -111,17 +111,18 @@ insert into traloi values('9','3',0,'số thực','A');
 insert into traloi values('10','3',0,'chuỗi','B');
 insert into traloi values('11','3',1,'số nguyên','C');
 insert into traloi values('12','3',0,'ký tự','D');
-
-select * from traloi;
-select * from cauhoi;
-delete from cauhoi where maCH=4;
-delete from traloi where maCH=4;
-delete from dethi where maDT like 'CT101D6';
-select * from mon where makhoa like "DI";
-select * from khoa;
-select * from dethi where maDT like 'CT10101';
-select * from cauhoi where maDT like 'CT10101';
-select * from traloi;
-select * from nguoidung where taikhoan like 'AD123456' and matkhau like 'AD123456';
-select * from nguoidung;
-delete from nguoidung where id=3;
+Delimiter $$
+drop function if exists KIEM_TRA_user $$
+CREATE FUNCTION KIEM_TRA_user(ptaikhoan varchar(16), pmatkhau varchar(16) ) RETURNS int
+begin
+if exists(select * from nguoidung where taikhoan like ptaikhoan and matkhau like pmatkhau)
+then return id;
+else return 0;
+end if;
+end;
+Delimiter $$
+CREATE PROCEDURE insertDeThi(tenDt varchar(255), ngaythi date, tgthi int, makhoa char(8), mamon char(8))
+BEGIN
+	insert into Dethi (tenDT,ngaythi,tgthi,makhoa,mamon) 
+     values(tenDT,ngaythi,tgthi,makhoa,mamon);
+END;

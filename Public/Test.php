@@ -52,6 +52,7 @@ use QTDL\PROJECT\controlTraLoi;
         <input type="hidden" name="maCH"
 		value="<?=$cauhoi->maCH?>">
             <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
+            <a href="<?=BASE_URL_PATH . 'editCauHoi.php?maDT='.$cauhoi->maDT.'&maCH='.$cauhoi->maCH?>">Sửa</a>
             <button type='submit'>delete</button>
             <?php endif?>
         </form>

@@ -113,8 +113,7 @@ public function saveDeThi(){
     }
     else{
         $statement = $this->db->prepare(
-            'insert into Dethi (tenDT,ngaythi,tgthi,makhoa,mamon) 
-            values(:tenDT,:ngaythi,:tgthi,:makhoa,:mamon);'
+            'call insertDeThi(:tenDT,:ngaythi,:tgthi,:makhoa,:mamon);'
         );
         $result = $statement->execute([
             'tenDT'=> $this->tenDT,
