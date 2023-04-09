@@ -13,8 +13,6 @@
         foreach ($allCauHoi as $CauHoi){
             $statement=$PDO->prepare('delete from traloi where maCH = :maCH');
             $statement->execute(array('maCH'=>$CauHoi->maCH));
-            $statement=$PDO->prepare('delete from cauhoi where maCH = :maCH');
-            $statement->execute(array('maCH'=>$CauHoi->maCH));
         }
         $statement=$PDO->prepare('delete from dethi where maDT = :maDT');
         $statement->execute(array('maDT'=>$_POST['maDT']));

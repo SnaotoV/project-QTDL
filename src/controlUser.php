@@ -58,6 +58,14 @@ public function fillUser(array $User){
         }
         return isset($this->id);
     }
+    public function getUsertheoID($id){
+        $statement = $this->db->prepare('select * from nguoidung where id = :id');
+        $statement->execute(array('id'=>$id));
+        if($row = $statement->fetch()){
+            $this->fillFromUser($row);
+        }
+        return $this;
+    }
     public function getUsertheoTaiKhoan($User){
         $statement = $this->db->prepare('select * from nguoidung where taikhoan like :taikhoan and matkhau like :matkhau');
         $statement->execute(['taikhoan'=>$User['taikhoan'],'matkhau'=>$User['matkhau']]);
@@ -65,6 +73,17 @@ public function fillUser(array $User){
             $this->fillFromUser($row);
         }
         return $this;
+    }
+    public function getUser(){
+        $allUser = [];
+        $statement = $this->db->prepare('select * from nguoidung');
+        $statement->execute();
+        while($row = $statement->fetch()){
+            $User = new controlUser($this->db);
+            $User->fillFromUser($row);
+            $allUser[] =$User;
+        }
+        return $allUser;
     }
     protected function fillFromUser(array $row)
 	{
@@ -104,5 +123,23 @@ public function fillUser(array $User){
             }
         }
         return $result;
+    }
+    public function adminLaw(){
+        $statement = $this->db->prepare(
+            'update nguoidung set user_type = "teacher"
+                where id = :id
+            '
+        );
+        $statement->execute(array('id'=>$this->id));
+        $this->user_type = 'teacher';
+    }
+    public function deleteAdminLaw(){
+        $statement = $this->db->prepare(
+            'update nguoidung set user_type = "user"
+                where id = :id
+            '
+        );
+        $statement->execute(array('id'=>$this->id));
+        $this->user_type = 'user';
     }
 }

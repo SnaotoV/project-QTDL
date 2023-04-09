@@ -113,11 +113,11 @@ insert into traloi values('11','3',1,'số nguyên','C');
 insert into traloi values('12','3',0,'ký tự','D');
 Delimiter $$
 drop function if exists KIEM_TRA_user $$
-CREATE FUNCTION KIEM_TRA_user(ptaikhoan varchar(16), pmatkhau varchar(16) ) RETURNS int
+CREATE FUNCTION KIEM_TRA_user(ptaikhoan varchar(16), pmatkhau varchar(16) ) RETURNS boolean
 begin
 if exists(select * from nguoidung where taikhoan like ptaikhoan and matkhau like pmatkhau)
-then return id;
-else return 0;
+then return true;
+else return false;
 end if;
 end;
 Delimiter $$
@@ -126,3 +126,23 @@ BEGIN
 	insert into Dethi (tenDT,ngaythi,tgthi,makhoa,mamon) 
      values(tenDT,ngaythi,tgthi,makhoa,mamon);
 END;
+select * from traloi;
+Delimiter $$ 
+	drop function if exists delete_question $$
+    CREATE  FUNCTION delete_question(maCH int(8))
+	RETURNS boolean
+	READS SQL DATA
+	DETERMINISTIC
+	BEGIN
+		delete from traloi where traloi.maCH = maCH;
+        return true;
+	END;
+select delete_question(1);
+Delimiter $$
+drop trigger if exists delete_question $$
+create trigger delete_question after delete on traloi
+for each row
+begin
+delete from cauhoi where cauhoi.maCH = old.maCH;
+end;
+delete from traloi where traloi.maCH = 1;

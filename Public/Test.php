@@ -51,7 +51,7 @@ use QTDL\PROJECT\controlTraLoi;
 		value="<?=$maDT?>">
         <input type="hidden" name="maCH"
 		value="<?=$cauhoi->maCH?>">
-            <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
+            <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'||isset($_SESSION['user_type'])&&$_SESSION['user_type']==='teacher'):?>
             <a href="<?=BASE_URL_PATH . 'editCauHoi.php?maDT='.$cauhoi->maDT.'&maCH='.$cauhoi->maCH?>">Sửa</a>
             <button type='submit'>delete</button>
             <?php endif?>
@@ -61,15 +61,15 @@ use QTDL\PROJECT\controlTraLoi;
         <script>console.log('<?=$_POST['maDT']?>')</script>
     <?php else:?>
         <div>Đề Thi chưa có câu hỏi 
-        <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
+        <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'||isset($_SESSION['user_type'])&&$_SESSION['user_type']==='teacher'):?>
             <a href="<?=BASE_URL_PATH . 'addCauHoi.php?maDT=' . $DeThi->maDT ?>">thêm câu hỏi</a>
         <?php else:?>
             đợi admin thêm câu hỏi
             <?php endif?>    
         </div>
     <?php endif?>    
-    <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
-        <a href="<?=BASE_URL_PATH . 'addCauHoi.php?maDT=' . $DeThi->maDT ?>">thêm câu hỏi</a>
+    <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'||isset($_SESSION['user_type'])&&$_SESSION['user_type']==='teacher'):?>
+    <a href="<?=BASE_URL_PATH . 'addCauHoi.php?maDT=' . $DeThi->maDT ?>">thêm câu hỏi</a>
         <?php endif?>    
 </body>
 </html>

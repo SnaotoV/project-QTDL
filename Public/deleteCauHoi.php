@@ -10,9 +10,7 @@
         && isset($_POST['maCH'])
         && ($CauHoi->findCauHoi($_POST['maCH'])) !== null
     ) {
-        $statement=$PDO->prepare('delete from traloi where maCH = :maCH');
-        $statement->execute(array('maCH'=>$_POST['maCH']));
-        $statement=$PDO->prepare('delete from cauhoi where maCH = :maCH');
+        $statement=$PDO->prepare('select delete_question( :maCH );');
         $statement->execute(array('maCH'=>$_POST['maCH']));
     }
     $maDT = $_POST['maDT'];

@@ -45,7 +45,7 @@
 		            value="<?=$mamon?>">
                     <input type="hidden" name="makhoa"
 		            value="<?=$makhoa?>">
-                    <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
+                    <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'||isset($_SESSION['user_type'])&&$_SESSION['user_type']==='teacher'):?>
                         <a href="<?=BASE_URL_PATH . 'edit.php?makhoa='.$makhoa.'&mamon='.$mamon.'&maDT='.$Dethi->maDT?>">Sửa</a>
                         <button type="submit">Xóa</button>
                     <?php endif?> 
@@ -53,7 +53,7 @@
                 <br>
         <?php endforeach?>
         <script>console.log("<?=$_POST['mamon']?>")</script>
-    <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
+    <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'||isset($_SESSION['user_type'])&&$_SESSION['user_type']==='teacher'):?>
     <div><a href="<?=BASE_URL_PATH . 'addDeThi.php?makhoa='.$makhoa.'&mamon='.$mamon?>">Thêm Đề Thi</a></div>
     <?php endif?>
 </body>
