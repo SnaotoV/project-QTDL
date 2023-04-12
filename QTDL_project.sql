@@ -99,18 +99,18 @@ insert into cauhoi values('1','1','lệnh scanf dùng để');
 insert into cauhoi values('2','1','lệnh printf dùng để');
 insert into cauhoi values('3','1','int là kiểu');
 
-insert into traloi values('1','1',1,'in ra màn hình','A');
-insert into traloi values('2','1',0,'chỉnh sửa nội dung','B');	
-insert into traloi values('3','1',0,'nhập vào nội dung','C');
-insert into traloi values('4','1',0,'xóa nội dung','D');
-insert into traloi values('5','2',0,'in ra màn hình','A');
-insert into traloi values('6','2',0,'chỉnh sửa nội dung','B');
-insert into traloi values('7','2',1,'nhập vào nội dung','C');
-insert into traloi values('8','2',0,'xóa nội dung','D');
-insert into traloi values('9','3',0,'số thực','A');
-insert into traloi values('10','3',0,'chuỗi','B');
-insert into traloi values('11','3',1,'số nguyên','C');
-insert into traloi values('12','3',0,'ký tự','D');
+	insert into traloi values('1','1',1,'in ra màn hình','A');
+	insert into traloi values('2','1',0,'chỉnh sửa nội dung','B');	
+	insert into traloi values('3','1',0,'nhập vào nội dung','C');
+	insert into traloi values('4','1',0,'xóa nội dung','D');
+	insert into traloi values('5','2',0,'in ra màn hình','A');
+	insert into traloi values('6','2',0,'chỉnh sửa nội dung','B');
+	insert into traloi values('7','2',1,'nhập vào nội dung','C');
+	insert into traloi values('8','2',0,'xóa nội dung','D');
+	insert into traloi values('9','3',0,'số thực','A');
+	insert into traloi values('10','3',0,'chuỗi','B');
+	insert into traloi values('11','3',1,'số nguyên','C');
+	insert into traloi values('12','3',0,'ký tự','D');
 Delimiter $$
 drop function if exists KIEM_TRA_user $$
 CREATE FUNCTION KIEM_TRA_user(ptaikhoan varchar(16), pmatkhau varchar(16) ) RETURNS boolean
@@ -143,6 +143,19 @@ drop trigger if exists delete_question $$
 create trigger delete_question after delete on traloi
 for each row
 begin
+SET FOREIGN_KEY_CHECKS=0;
 delete from cauhoi where cauhoi.maCH = old.maCH;
+SET FOREIGN_KEY_CHECKS=1;
 end;
 delete from traloi where traloi.maCH = 1;
+update set user_type = "teacher"
+                where id = :id;
+select * from nguoidung;
+
+Delimiter $$
+drop procedure if exists registerUser $$
+CREATE PROCEDURE registerUser(taikhoan varchar(16), matkhau varchar(16), hoten varchar(255), user_type varchar(50))
+BEGIN
+	insert into nguoidung (taikhoan,matkhau,hoten,user_type) 
+                values(taikhoan,matkhau,hoten,user_type);
+END;

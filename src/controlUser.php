@@ -109,8 +109,7 @@ public function fillUser(array $User){
         $result = false;
         if(!$this->id){
             $statement = $this->db->prepare(
-                'insert into nguoidung (taikhoan,matkhau,hoten,user_type) 
-                values(:taikhoan,:matkhau,:hoten,:user_type);'
+                'call registerUser(:taikhoan,:matkhau,:hoten,:user_type);'
             );
             $result = $statement->execute([
                 'taikhoan'=> $this->taikhoan,

@@ -7,6 +7,7 @@ class controlMon{
     public $mamon;
     public $tenmon;
     public $makhoa;
+    public $errors = [];
 
 // khai báo
 
@@ -14,6 +15,34 @@ class controlMon{
 	    {
     		$this->db = $pdo;
 	    }
+        public function getValidationErrors()
+	    {
+		    return $this->errors;
+	    }
+        public function validate(){
+            if(!$this->mamon){
+                $this->errors['mamon']='Mã môn không được trống.';
+            }
+            if(!$this->makhoa){
+                $this->errors['makhoa']='Mã khoa không được trống.';
+            }
+            if(!$this->tenmon){
+                $this->errors['tenmon']='Tên môn thi không được trống.';
+            }
+            return empty($this->errors);
+            }
+        public function fillMon(array $Data){
+            if(isset($Data['tenmon'])){
+                $this->tenmon = trim($Data['tenmon']);
+            }
+            if(isset($Data['makhoa'])){
+                $this->makhoa = trim($Data['makhoa']);
+            }
+            if(isset($Data['mamon'])){
+                $this->mamon = trim($Data['mamon']);
+            }
+            return $this;
+        }
     public function getIdMon(){
         return $this->mamon;
     }
@@ -48,4 +77,16 @@ class controlMon{
 		] = $row;
 		return $this;
 	}
+    public function saveMon(){
+        $result = false;
+            $statement = $this->db->prepare(
+                'insert into mon values(:mamon,:tenmon,:makhoa);'
+            );
+            $result = $statement->execute([
+                'mamon' => $this->mamon,
+			    'tenmon' => $this->tenmon,
+			    'makhoa' => $this->makhoa
+            ]);
+        return $result;
+    }
 }

@@ -42,6 +42,9 @@
                                 <?php else:?>
                                     <div>Khoa này chưa có môn học</div>
                                 <?php endif?>
+                                <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'):?>
+                                    <a href="<?=BASE_URL_PATH . 'addMon.php?makhoa=' . $khoa->makhoa ?>">thêm câu hỏi</a>
+                                <?php endif?> 
                         </div>
                     </div>
             <?php endforeach?> 
