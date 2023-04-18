@@ -12,7 +12,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sửa câu hỏi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
 		integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -43,17 +45,17 @@
        }
     } 
     ?>
-    <form action="" method='post'>
+    <form action="" method='post' style="margin-left: 5%;" class="my-2">
         <input type="hidden" name="maCH" value="<?=$CauHoi->maCH?>">
-        <label for="ndCauHoi">nhập nội dung câu hỏi:</label>
-        <textarea name="ndCauHoi" id="ndCauHoi" cols="180" rows="10"><?=$CauHoi->ndCauHoi?></textarea>
+        <label class="font-weight-bold" for="ndCauHoi">Nhập nội dung câu hỏi:</label>
+        <textarea name="ndCauHoi" id="ndCauHoi" cols="150" rows="7"><?=$CauHoi->ndCauHoi?></textarea>
         <?php if(isset($errors['ndCauHoi'])):?>
             <span><strong><?=htmlspecialchars($errors['ndCauHoi'])?></strong></span><br>
         <?php endif?>
         <?php foreach($allCauTL as $TraLoi):?>
         <input type="hidden" name="<?='maTL'.$dem?>" value="<?=$TraLoi->maTL?>">
-        <label for="ndTraLoi1">nhập câu trả lời</label>
-        <input type="text" name='<?='ndTraLoi'.$dem?>' id='<?='ndTraLoi'.$dem?>' value="<?=$TraLoi->ndTraLoi?>">
+        <label for="ndTraLoi1">Nhập câu trả lời</label>
+        <input style="width: 63%; margin: 10px 0px 10px 0px;" type="text" name='<?='ndTraLoi'.$dem?>' id='<?='ndTraLoi'.$dem?>' value="<?=$TraLoi->ndTraLoi?>">
         <label for="<?='TL'.$dem?>">check nếu câu trả lời là đúng</label>
         <input <?php if($TraLoi->dapan==1):?> checked="checked" <?php endif?> type="radio" name='dapan' id='<?='TL'.$dem?>' value="<?=$dem?>"><br>
         <?php if(isset($errors['ndTraLoi'.$dem])):?>
@@ -61,8 +63,10 @@
         <?php endif?>
         <?php $dem++?>
         <?php endforeach?>
-        <button type='submit'>thêm</button>
+        <button class="btn btn-success my-2" style="margin-left: 88%;" type='submit'>Thêm</button>
     </form>
     <script>console.log('<?=$_POST['dapan']?>')</script>
+
+    <?php require_once '../Compoinent/footer.php' ?>
 </body>
 </html>

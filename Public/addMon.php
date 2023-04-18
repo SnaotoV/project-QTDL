@@ -9,6 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm môn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
 		integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -33,11 +35,15 @@
         $errors = $Mon->getValidationErrors();
     }
     ?>
+    <div class="container border border-primary rounded mt-5 text-center shadow" style="width: 500px;">
+        <div class="row py-1 pl-4" style="background-color: #0066CC;">
+            <h4 class="text-white">Thêm môn học</h4>
+        </div>
     <form action="" method="post">
         <table>
             <tr>
-                <td>
-                    <label for="makhoa">Mã khoa</label>
+                <td style="padding-left: 80px;">
+                    <label class="py-2 pr-3" for="makhoa">Mã khoa</label>
                 </td>
                 <td>
                     <input type="text" name="makhoa" id="makhoa" value="<?=$makhoa?>">
@@ -51,8 +57,8 @@
                 </td> 
             </tr>
             <tr>
-                <td>
-                    <label for="mamon">Mã môn</label>
+                <td style="padding-left: 80px;">
+                    <label class="py-2 pr-3" for="mamon">Mã môn</label>
                 </td>
                 <td>
                     <input type="text" name="mamon" id="mamon">
@@ -66,8 +72,8 @@
                 </td> 
             </tr>
             <tr>
-                <td>
-                    <label for="tenmon">Tên môn:</label>
+                <td style="padding-left: 80px;">
+                    <label class="py-2 pr-3" for="tenmon">Tên môn:</label>
                 </td>
                 <td>
                     <input type="text" name="tenmon" id="tenmon">
@@ -81,8 +87,12 @@
                 </td> 
             </tr>
         </table>
-            <button type="submit">Thêm</button>
+            <button class="my-2" type="submit">Thêm</button>
     </form>
     <script >console.log("<?=$Mon->validate()?>")</script>
+    </div>
+
+   <?php require_once '../Compoinent/footer.php' ?>
 </body>
+
 </html>

@@ -1,8 +1,6 @@
 <?php 
 require_once '../connectData.php';
 use QTDL\PROJECT\controlUser;
-$controlUser = new controlUser($PDO);
-$allUser = $controlUser->getUser();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +9,8 @@ $allUser = $controlUser->getUser();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quyền admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
 		integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -24,36 +24,34 @@ $allUser = $controlUser->getUser();
     <?php 
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $id = $_POST['id'];
+        $controlUser =new controlUser($PDO);
         $User = $controlUser->getUsertheoID($id);
         if(isset($_POST['id'])){
             if($User->getUserType()==='user'){
                 $User->adminLaw();
-                $_POST['id']='';
             }
             else{
                 $User->deleteAdminLaw();
-                $_POST['id']='';
             }
         }
     }
     ?>
     <?php require_once '../Compoinent/header.php'; ?>
-    <?php foreach($allUser as $User):?>
+    <?php 
+    $controlUser = new controlUser($PDO);
+    $allUser = $controlUser->getUser();
+    foreach($allUser as $User):?>
         <?php if($User->getUserType()!='admin'): ?>
         <form action="" method='post'>
             <input type="hidden" name='id' id='id' value="<?=$User->id?>">
-            <?php if($User->getUserType()==='user'):?>
             <div><?=htmlspecialchars($User->hoten)?> - <button type="submit">
-                Cấp quyền giáo viên
+                <?= $User->getUserType()=='user'?'Cấp quyền giáo viên':'Xóa quyền giáo viên'?>
             </button></div>
-            <?php else :?>
-            <div><?=htmlspecialchars($User->hoten)?> - <button type="submit">
-                Xóa quyền giáo viên
-            </button></div>
-                <?php endif?>
         </form>
         <?php endif?>
     <?php endforeach?>
     <script>console.log('<?=$_POST["id"]?>')</script>
+    <?php require_once '../Compoinent/footer.php' ?>
+
 </body>
 </html>

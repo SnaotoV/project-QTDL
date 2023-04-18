@@ -20,6 +20,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
 		integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -45,19 +47,19 @@
     filter_var($_REQUEST['maDT']) : -1;
     $Dethi = $controlDethi->getDeThiMaDeThi($maDT);
     ?>
-        <table>
+        <table class="m-auto py-2 table" style="width:50%;">
             <input type="hidden" name="maDT" value="<?=$Dethi->maDT?>">
             <tr>
-                <td>
-                    <label for="makhoa">Mã Khoa</label>
+                <td class="pt-4">
+                    <label for="makhoa">Mã khoa</label>
                 </td>
-                <td>
+                <td class="pt-4">
                     <input type="text" name='makhoa' id="makhoa" value='<?=$Dethi->makhoa?>'>    
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="mamon">Mã Môn Thi</label>
+                    <label for="mamon">Mã môn thi</label>
                 </td>
                 <td>
                     <input type="text" name='mamon' id="mamon" value='<?=$Dethi->mamon?>'>    
@@ -68,7 +70,7 @@
                     <label for="tenDT">Kỳ thi</label>
                 </td>
                 <td>
-                    <input type="text" name='tenDT' id="tenDT" value='<?=$Dethi->tenDT?>'>
+                    <input style="width: 240px;" type="text" name='tenDT' id="tenDT" value='<?=$Dethi->tenDT?>'>
                 </td>
                 <td>
                     <?php if (isset($errors['tenDT'])) : ?>
@@ -107,10 +109,11 @@
                         </span>
                         <?php endif ?>
                 </td>
+
             </tr>
-            
+
         </table>
-        <button type="submit" name="submit" id="submit" >Thêm</button>
+        <button class="btn btn-success" style="margin-left: 70%;"  type="submit" name="submit" id="submit" >Thêm</button>
     </form>
     <?php
     $error = [];
@@ -120,5 +123,7 @@
     <script>console.log('<?=$Dethi->tgthi?>')</script>
     <script>console.log('<?=$Dethi->makhoa?>')</script>
     <script>console.log('<?=$Dethi->maDT?>')</script>
+    <div style="height: 180px;"></div>
+    <?php require_once '../Compoinent/footer.php' ?>
 </body>
 </html>

@@ -29,12 +29,15 @@
        $errors = $User->getValidationErrors();
     } 
     ?>
-    <div>Đăng ký</div>
+    <div class="container border border-primary rounded mt-5 text-center shadow" style="width: 500px;">
+        <div class="row py-1 pl-4" style="background-color: #0066CC;">
+            <h4 class="text-white">Đăng ký</h4>
+        </div>
     <form action="" method='post'>
     <table>
         <tr>
-            <td>
-                <label for="taikhoan">Họ và tên:</label> 
+            <td style="padding-left: 80px;">
+                <label class="py-2 pr-3" for="taikhoan">Họ và tên</label> 
             </td>
             <td>
                 <input type="text" name='hoten' id='hoten'>
@@ -48,8 +51,8 @@
                 </td>
         </tr>
         <tr>
-            <td>
-                <label for="taikhoan">Tài Khoản:</label> 
+            <td style="padding-left: 80px;">
+                <label class="pt-2 pr-3" for="taikhoan">Tài khoản</label> 
             </td>
             <td>
                 <input type="text" name='taikhoan' id='taikhoan'>
@@ -63,8 +66,8 @@
                 </td>
         </tr>
         <tr>
-            <td>
-                <label for="matkhau">Mật Khẩu:</label>
+            <td style="padding-left: 80px;">
+                <label class="py-2 pr-3" for="matkhau">Mật khẩu</label>
             </td>
             <td>
                 <input type="password" name='matkhau' id='matkhau' autocomplete="on">
@@ -78,8 +81,11 @@
                 </td>
         </tr>
     </table>
-    <button type='submit'>Đăng ký</button>
+    <button class="btn btn-primary my-2" type='submit'>Đăng ký</button>
     </form>
     <script>console.log("<?=$_POST['taikhoan']?>")</script>
+    </div>
+    <div style="height: 140px;"></div>
+    <?php require_once '../Compoinent/footer.php' ?>
 </body>
 </html>

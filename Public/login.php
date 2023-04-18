@@ -34,36 +34,44 @@
        
     }
     ?>
-    <div>Đăng nhập</div>
-    <form action="" method='post'>
-    <table>
-        <tr>
-            <td>
-                <label for="taikhoan">Tài Khoản</label> 
-            </td>
-            <td>
-                <input type="text" name='taikhoan' id='taikhoan'>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <label for="matkhau">Mật Khẩu</label>
-            </td>
-            <td>
-                <input type="password" name='matkhau' id='matkhau' autocomplete="on">
-            </td>
-        </tr>
-    </table>
-    <button type='submit'>Đăng nhập</button>
-    </form>
-    <td>
-                <?php if (isset($error)) : ?>
-                    <span class="help-block">
-                        <strong><?= htmlspecialchars($error) ?></strong>
-                    </span>
-                    <?php endif ?>
-                </td>
+    <div class="container border border-primary rounded mt-5 text-center shadow" style="width: 500px;">
+        <div class="row py-1 pl-4" style="background-color: #0066CC;">
+            <h4 class="text-white">Đăng nhập</h4>
+        </div>
+        <form action="" method='post'>
+            <table>
+                <tr>
+                    <td style="padding-left: 80px;">
+                        <label class="py-3 pr-3" for="taikhoan">Tài khoản</label> 
+                    </td>
+                    <td>
+                        <input type="text" name='taikhoan' id='taikhoan'>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td style="padding-left: 80px;">
+                        <label class="pr-3"for="matkhau">Mật khẩu</label>
+                    </td>
+                    <td>
+                        <input type="password" name='matkhau' id='matkhau' autocomplete="on">
+                    </td>
+                </tr>
+            </table>
+            <button class="btn btn-primary my-2" type='submit'>Đăng nhập</button>
+        </form>
+        <td>
+            <?php if (isset($error)) : ?>
+                <span class="help-block">
+                    <strong><?= htmlspecialchars($error) ?></strong>
+                </span>
+                <?php endif ?>
+        </td>
     <script>console.log('<?=empty($_SESSION['id'])?>')</script>
+    </div>
+    <div style="height: 180px;"></div>
+    <!-- <div style=""> -->
+          <?php require_once '../Compoinent/footer.php' ?>
+    </div>
 </body>
 </html>

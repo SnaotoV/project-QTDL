@@ -12,28 +12,28 @@ $statement = $PDO->prepare('update traloi set maCH = :maCH, dapan = :dapan, ndTr
                             where  maTL = :maTL');
 $statement->execute([
     'maCH'=>$Data['maCH'],
-    'dapan'=>$Data['dapan']==1,
+    'dapan'=>$Data['dapan']==1 ? 1 : 0,
     'ndTraLoi'=>$Data['ndTraLoi1'],
     'vitri'=>'A',
     'maTL'=>$Data['maTL1']
 ]);
 $statement->execute([
     'maCH'=>$Data['maCH'],
-    'dapan'=>$Data['dapan']==2,
+    'dapan'=>$Data['dapan']==2 ? 1 : 0,
     'ndTraLoi'=>$Data['ndTraLoi2'],
     'vitri'=>'B',
     'maTL'=>$Data['maTL2']
 ]);
 $statement->execute([
     'maCH'=>$Data['maCH'],
-    'dapan'=>$Data['dapan']==3,
+    'dapan'=>$Data['dapan']==3 ? 1 : 0,
     'ndTraLoi'=>$Data['ndTraLoi3'],
     'vitri'=>'C',
     'maTL'=>$Data['maTL3']
 ]);
 $statement->execute([
     'maCH'=>$Data['maCH'],
-    'dapan'=>$Data['dapan']==4,
+    'dapan'=>$Data['dapan']==4 ? 1 : 0,
     'ndTraLoi'=>$Data['ndTraLoi4'],
     'vitri'=>'D',
     'maTL'=>$Data['maTL4']
@@ -49,25 +49,25 @@ $maCH=$PDO->lastInsertId();
 $statement = $PDO->prepare('insert into traloi(maCH,dapan,ndTraLoi,vitri) values(:maCH,:dapan,:ndTraLoi,:vitri)');
 $statement->execute([
     'maCH'=>$maCH,
-    'dapan'=>$Data['dapan']==1,
+    'dapan'=>$Data['dapan']== 1 ? 1 : 0,
     'ndTraLoi'=>$Data['ndTraLoi1'],
     'vitri'=>'A'
 ]);
 $statement->execute([
     'maCH'=>$maCH,
-    'dapan'=>$Data['dapan']==2,
+    'dapan'=>$Data['dapan']== 2 ? 1 : 0,
     'ndTraLoi'=>$Data['ndTraLoi2'],
     'vitri'=>'B'
 ]);
 $statement->execute([
     'maCH'=>$maCH,
-    'dapan'=>$Data['dapan']==3,
+    'dapan'=>$Data['dapan']==3 ? 1 : 0,
     'ndTraLoi'=>$Data['ndTraLoi3'],
     'vitri'=>'C'
 ]);
 $statement->execute([
     'maCH'=>$maCH,
-    'dapan'=>$Data['dapan']==4,
+    'dapan'=>$Data['dapan']==4 ? 1 : 0,
     'ndTraLoi'=>$Data['ndTraLoi4'],
     'vitri'=>'D'
 ]);

@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tất cả đề thi</title>
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
 		integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -34,27 +35,48 @@
     }
     else{
         $allDethi = $controlDeThi->getDeThiTheoMon($mamon);
-    }
-    foreach($allDethi as $Dethi):?>
+    } ?>
+    <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'||isset($_SESSION['user_type'])&&$_SESSION['user_type']==='teacher'):?>
+        <div class="offset-10 text-center my-4 py-1" style="width: 120px; border-radius: 5px; ">
+            <a class="text-decoration-none btn btn-success" href="<?=BASE_URL_PATH . 'addDeThi.php?makhoa='.$makhoa.'&mamon='.$mamon?>">Thêm Đề Thi</a>
+        </div>
+    <?php endif?>
+    <table class="offset-1 table" style="width: 80%; min-height: 350px;">
+    <?php foreach($allDethi as $Dethi):?>
                <form class="delete" action="<?=BASE_URL_PATH.'deleteDethi.php'?>"					
 		        method="post" style="display: inline;">
-                    <a href="<?=BASE_URL_PATH . 'Test.php?maDT='.$Dethi->maDT.'&tenDT='.$Dethi->tenDT ?>"><?=htmlspecialchars($Dethi->maDT)?> - <?=htmlspecialchars($Dethi->tenDT)?> </a>
-                    <input type="hidden" name="maDT"
-		            value="<?=$Dethi->maDT?>">
-                    <input type="hidden" name="mamon"
-		            value="<?=$mamon?>">
-                    <input type="hidden" name="makhoa"
-		            value="<?=$makhoa?>">
-                    <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'||isset($_SESSION['user_type'])&&$_SESSION['user_type']==='teacher'):?>
-                        <a href="<?=BASE_URL_PATH . 'edit.php?makhoa='.$makhoa.'&mamon='.$mamon.'&maDT='.$Dethi->maDT?>">Sửa</a>
-                        <button type="submit">Xóa</button>
-                    <?php endif?> 
-                    </form>
+                <thead>
+                    <tr>
+                        <th>Tên đề thi</th>
+                        <th>Hiệu chỉnh</th> 
+                    </tr>                    
+                </thead>
+                    <tr>
+                       <td>
+                            <a class="text-decoration-none" href="<?=BASE_URL_PATH . 'Test.php?maDT='.$Dethi->maDT.'&tenDT='.$Dethi->tenDT ?>"><?=htmlspecialchars($Dethi->maDT)?> - <?=htmlspecialchars($Dethi->tenDT)?> </a>
+                        </td>
+                        <input type="hidden" name="maDT"
+                        value="<?=$Dethi->maDT?>">
+                        <input type="hidden" name="mamon"
+                        value="<?=$mamon?>">
+                        <input type="hidden" name="makhoa"
+                        value="<?=$makhoa?>">
+                        <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'||isset($_SESSION['user_type'])&&$_SESSION['user_type']==='teacher'):?>
+                            <td>
+                                <a class="text-decoration-none font-weight-bold btn btn-primary mr-2" href="<?=BASE_URL_PATH . 'edit.php?makhoa='.$makhoa.'&mamon='.$mamon.'&maDT='.$Dethi->maDT?>">Sửa</a>
+                                <span class="font-weight-bold">|</span>
+                                <button class="btn" type="submit"><i style="color: red; font-size: 30px;" class="fa fa-trash"></i></button>
+                            </td>
+                            
+                        <?php endif?>  
+                    </tr>
+                    
+                </form>
                 <br>
-        <?php endforeach?>
+                <?php endforeach?>
+            </table>
         <script>console.log("<?=$_POST['mamon']?>")</script>
-    <?php if(isset($_SESSION['user_type'])&&$_SESSION['user_type']==='admin'||isset($_SESSION['user_type'])&&$_SESSION['user_type']==='teacher'):?>
-    <div><a href="<?=BASE_URL_PATH . 'addDeThi.php?makhoa='.$makhoa.'&mamon='.$mamon?>">Thêm Đề Thi</a></div>
-    <?php endif?>
+    
+        <?php require_once '../Compoinent/footer.php' ?>
 </body>
 </html>

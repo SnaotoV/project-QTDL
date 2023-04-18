@@ -124,13 +124,15 @@ public function fillUser(array $User){
         return $result;
     }
     public function adminLaw(){
+        $result = false;
         $statement = $this->db->prepare(
             'update nguoidung set user_type = "teacher"
                 where id = :id
             '
         );
-        $statement->execute(array('id'=>$this->id));
+        $result=$statement->execute(array('id'=>$this->id));
         $this->user_type = 'teacher';
+        return $result;
     }
     public function deleteAdminLaw(){
         $statement = $this->db->prepare(

@@ -68,6 +68,17 @@ class controlMon{
         }
         return $allMon;
     }
+    public function getMonTheoUser($id){
+        $allMon = [];
+        $statement = $this->db->prepare('select m.mamon,m.tenmon,m.mamon,m.makhoa from mon as m, monday as md where m.mamon=md.mamon and md.id = :id;');
+        $statement->execute(array('id'=>$id));
+        while($row = $statement->fetch()){
+            $mon = new controlMon($this->db);
+            $mon->fillFromMon($row);
+            $allMon[] =$mon;
+        }
+        return $allMon;
+    }
     protected function fillFromMon(array $row)
 	{
 		[

@@ -1,5 +1,5 @@
 create database project_QTDL;
--- drop database project_QTDL;
+-- 
 use project_QTDL;
 create table Khoa(
 makhoa char(8) primary key NOT NULL,
@@ -34,6 +34,7 @@ maDT int(8),
 ndCauHoi varchar(255),
 foreign key (maDT) references DETHI(maDT)
 );
+
 create table TRALOI(
 maTL int(8) primary key NOT NULL auto_increment,
 maCH int(8) NOT NULL,
@@ -48,6 +49,12 @@ foreign key (maCH) references CAUHOI(maCH)
  matkhau varchar(16),
  hoten varchar(255),
  user_type varchar(50)
+ );
+  create table monday(
+ id int(8),
+ mamon char(8),
+foreign key (id) references nguoidung(id),
+foreign key (mamon) references mon(mamon) 
  );
  insert into nguoidung values(1,'AD123456','AD123456','Admin','admin');
  insert into nguoidung values(2,'Toan','Toan','Võ Phúc Toàn','user');
@@ -111,6 +118,7 @@ insert into cauhoi values('3','1','int là kiểu');
 	insert into traloi values('10','3',0,'chuỗi','B');
 	insert into traloi values('11','3',1,'số nguyên','C');
 	insert into traloi values('12','3',0,'ký tự','D');
+    insert into monday values(2,'CT101');
 Delimiter $$
 drop function if exists KIEM_TRA_user $$
 CREATE FUNCTION KIEM_TRA_user(ptaikhoan varchar(16), pmatkhau varchar(16) ) RETURNS boolean
@@ -159,3 +167,35 @@ BEGIN
 	insert into nguoidung (taikhoan,matkhau,hoten,user_type) 
                 values(taikhoan,matkhau,hoten,user_type);
 END;
+create table list_monday(
+mamon varchar(8);
+);
+Delimiter $$
+drop procedure if exists monday $$
+CREATE PROCEDURE monday(list_monday varchar(4000),idnd int(8))
+BEGIN
+	DECLARE v_finished INTEGER DEFAULT 0;
+	DECLARE v_mon varchar(100) DEFAULT "";
+	declare monday_cursor cursor for select mon.mamon from mon, monday where mon.mamon = monday.mamon and monday.id = idnd;
+    DECLARE CONTINUE HANDLER
+	FOR NOT FOUND SET v_finished = 1;
+	OPEN monday_cursor;
+    get_mon: LOOP
+	FETCH monday_cursor INTO v_mon;
+	IF v_finished = 1 THEN
+	LEAVE get_mon;
+	END IF;
+    SET list_monday = CONCAT(v_mon,";",list_monday );
+    END LOOP get_mon;
+    CLOSE monday_cursor;
+END;
+Delimiter $$
+drop procedure if exists SDmonday $$
+CREATE PROCEDURE SDmonday(idnd int(8))
+BEGIN
+	DECLARE list_monday varchar(4000) DEFAULT "";
+	call monday(list_monday,idnd);
+	select * from list_monday;
+END;
+
+call SDmonday(2);
